@@ -1,0 +1,284 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Scan History — QShield Cybersecurity{% endblock %}
+
+{% block extra_css %}
+<style>
+  .history-hero {
+    padding: var(--space-2xl) 0 var(--space-xl);
+    text-align: center;
+  }
+  .filter-panel {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-lg);
+    margin-bottom: var(--space-xl);
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    align-items: center;
+    justify-content: space-between;
+  }
+  .filter-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    align-items: center;
+  }
+  .filter-select, .filter-input {
+    background: var(--color-bg-surface);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    padding: 0.5rem 0.85rem;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+  .filter-select:focus, .filter-input:focus {
+    border-color: var(--color-teal);
+  }
+  .table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+  .history-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    font-size: var(--text-sm);
+  }
+  .history-table th {
+    background: var(--color-bg-surface);
+    color: var(--color-text-secondary);
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.05em;
+    padding: 0.85rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+  .history-table td {
+    padding: 0.9rem 1rem;
+    border-bottom: 1px solid var(--color-border);
+    color: var(--color-text-primary);
+    vertical-align: middle;
+  }
+  .history-table tr:last-child td {
+    border-bottom: none;
+  }
+  .history-table tr:hover td {
+    background: var(--color-bg-surface);
+  }
+  .table-actions {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+  }
+  .btn-icon {
+    background: transparent;
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    border-radius: var(--radius-sm);
+    padding: 0.35rem 0.55rem;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  .btn-icon:hover {
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+  }
+  .btn-icon-danger:hover {
+    border-color: #ef4444;
+    color: #ef4444;
+  }
+  .pagination-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+  }
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-md);
+  }
+  .modal-dialog {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+    max-width: 540px;
+    width: 100%;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+  <div class="container" style="max-width: 1100px;">
+
+    <!-- Hero Header -->
+    <div class="history-hero">
+      <div class="hero-badge">Audit Log & Compliance</div>
+      <h1 style="margin: var(--space-md) 0 var(--space-xs); font-size: 2.2rem;">Scan History</h1>
+      <p style="font-size: 1.05rem; color: var(--color-text-secondary); max-width: 650px; margin: 0 auto var(--space-lg);">
+        Review non-sensitive metadata for past inspections. Fully compliant with QShield’s privacy-by-design architecture.
+      </p>
+    </div>
+
+    <!-- Privacy Banner -->
+    <div class="alert-box" style="border-left-color: var(--color-teal); background: var(--color-bg-card); margin-bottom: var(--space-xl); font-size: 0.85rem;">
+      <div>
+        <strong>Privacy Assurance:</strong> QShield persists only minimal operational metadata (scan ID, timestamp, submission method, payload category, sanitized domain, and heuristic risk score). Full decoded QR payloads, passwords, contact details, and sensitive URL query strings are <em>never</em> stored.
+      </div>
+    </div>
+
+    <!-- Filters & Search Bar -->
+    <div class="filter-panel">
+      <div class="filter-group">
+        <select id="filterCategory" class="filter-select" aria-label="Filter by Payload Category" onchange="applyFilters()">
+          <option value="">All Categories</option>
+          <option value="Web Address (URL)">Web Address (URL)</option>
+          <option value="Payment Request (UPI)">Payment Request (UPI)</option>
+          <option value="Wi-Fi Network">Wi-Fi Network</option>
+          <option value="Contact Card (vCard)">Contact Card (vCard)</option>
+          <option value="Plain Text">Plain Text</option>
+          <option value="Telephone Dialing">Telephone Dialing</option>
+          <option value="SMS Composition">SMS Composition</option>
+          <option value="Email Composition">Email Composition</option>
+          <option value="Geographic Coordinates">Geographic Coordinates</option>
+          <option value="Calendar Event">Calendar Event</option>
+        </select>
+
+        <select id="filterRisk" class="filter-select" aria-label="Filter by Risk Level" onchange="applyFilters()">
+          <option value="">All Risk Levels</option>
+          <option value="low">Low Risk</option>
+          <option value="medium">Medium Risk</option>
+          <option value="high">High Risk</option>
+          <option value="critical">Critical Risk</option>
+          <option value="inconclusive">Inconclusive</option>
+        </select>
+
+        <select id="filterStatus" class="filter-select" aria-label="Filter by Processing Status" onchange="applyFilters()">
+          <option value="">All Statuses</option>
+          <option value="completed">Completed</option>
+          <option value="inconclusive">Inconclusive</option>
+          <option value="failed">Failed</option>
+        </select>
+      </div>
+
+      <div class="filter-group">
+        <input type="text" id="searchInput" class="filter-input" placeholder="Search ID or keyword..." aria-label="Search History" onkeydown="if(event.key==='Enter') applyFilters()">
+        <button type="button" class="btn btn-secondary" style="padding: 0.5rem 0.9rem;" onclick="applyFilters()">Filter</button>
+        <button type="button" class="btn btn-secondary" style="padding: 0.5rem 0.8rem;" onclick="resetFilters()" title="Reset Filters">↺</button>
+      </div>
+    </div>
+
+    <!-- History Data Table Container -->
+    <div id="tableContainer" class="table-responsive">
+      <table class="history-table" aria-label="Scan History Records">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Timestamp (UTC)</th>
+            <th>Type</th>
+            <th>Category</th>
+            <th>Sanitized Target</th>
+            <th>Risk Level</th>
+            <th>Score</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="historyTbody">
+          <!-- Dynamically populated via history.js -->
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Empty State -->
+    <div id="emptyState" style="display: none; text-align: center; padding: var(--space-3xl); background: var(--color-bg-card); border-radius: var(--radius-lg); border: 1px dashed var(--color-border); margin-top: var(--space-md);">
+      <h3 style="margin-bottom: var(--space-xs);">No Scan Records Found</h3>
+      <p style="color: var(--color-text-secondary); max-width: 480px; margin: 0 auto var(--space-lg);">
+        There are currently no saved scan records matching your filter. Start by scanning a QR code or manual address.
+      </p>
+      <a href="{{ url_for('main.scanner_page') }}" class="btn btn-primary btn-sm">Go to QR Scanner</a>
+    </div>
+
+    <!-- Pagination Controls -->
+    <div id="paginationBar" class="pagination-bar" style="display: none;">
+      <span id="paginationInfo">Showing 0-0 of 0</span>
+      <div style="display: flex; gap: var(--space-sm); align-items: center;">
+        <button type="button" class="btn btn-secondary" id="btnPrevPage" style="padding: 0.4rem 0.8rem;" onclick="changePage(-1)">← Previous</button>
+        <span id="pageNumberDisplay" style="font-weight: 600;">Page 1</span>
+        <button type="button" class="btn btn-secondary" id="btnNextPage" style="padding: 0.4rem 0.8rem;" onclick="changePage(1)">Next →</button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Detail Modal -->
+<div id="detailModal" class="modal-overlay">
+  <div class="modal-dialog">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: var(--space-md);">
+      <h3 id="modalTitle" style="margin: 0;">Scan Record Details</h3>
+      <button type="button" class="btn btn-secondary" style="padding: 0.2rem 0.6rem;" onclick="closeDetailModal()">✕</button>
+    </div>
+    
+    <div id="modalBody" style="display: flex; flex-direction: column; gap: var(--space-sm); font-size: var(--text-sm); line-height: 1.5; margin-bottom: var(--space-xl);">
+      <!-- Dynamically filled -->
+    </div>
+
+    <div style="display: flex; justify-content: space-between; gap: var(--space-md); border-top: 1px solid var(--color-border); padding-top: var(--space-md);">
+      <a id="modalDownloadPdfBtn" href="#" class="btn btn-primary btn-sm">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+        </svg>
+        Download Summary PDF
+      </a>
+      <button type="button" class="btn btn-secondary btn-sm" onclick="closeDetailModal()">Close</button>
+    </div>
+  </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal-overlay">
+  <div class="modal-dialog" style="max-width: 420px; text-align: center;">
+    <h3 style="margin-bottom: var(--space-xs);">Delete Scan Record?</h3>
+    <p id="deleteModalText" style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-xl);">
+      Are you sure you want to permanently delete this scan record from the database? This action cannot be undone.
+    </p>
+    <div style="display: flex; justify-content: center; gap: var(--space-md);">
+      <button type="button" id="confirmDeleteBtn" class="btn btn-primary" style="background: #ef4444;" onclick="executeDelete()">Yes, Delete Record</button>
+      <button type="button" class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/history.js') }}"></script>
+{% endblock %}

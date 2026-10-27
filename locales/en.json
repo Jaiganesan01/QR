@@ -1,0 +1,239 @@
+{
+  "awareness_title": "QShield Awareness Centre",
+  "awareness_subtitle": "Think Before You Scan. Stay Safe Online.",
+  "hero_badge": "Bilingual Cyber Awareness & Defense",
+  "hero_heading": "Think Before You Scan.",
+  "hero_desc": "Learn how QR scams work, recognize suspicious links, and protect your personal information and payments.",
+  "btn_explore_guides": "Explore Safety Guides",
+  "btn_test_knowledge": "Spot the Scam Scenarios",
+  "btn_safety_checklist": "Interactive Checklist",
+  
+  "lang_en": "English",
+  "lang_ta": "தமிழ் (Tamil)",
+  "language_selector_label": "Select Language",
+
+  "search_placeholder": "Search guides (e.g. UPI, phishing, Wi-Fi, suspicious URLs)...",
+  "search_no_results": "No guides matched your search query. Try terms like 'payment', 'login', or 'tampering'.",
+  "categories_heading": "Essential Learning Categories",
+  "categories_desc": "Practical, step-by-step guidance designed to empower everyday digital citizens against modern social engineering.",
+
+  "guides": {
+    "guide_a": {
+      "id": "qr-basics",
+      "badge": "Fundamentals",
+      "title": "QR Code Safety Basics",
+      "desc": "Understand what hides behind square barcodes and why appearance reveals nothing about destination safety.",
+      "points": [
+        "What a QR code actually is: An optical 2D barcode that can encode URLs, Wi-Fi keys, text, or payment intents.",
+        "Visual deception: Every QR code looks similarly inert. You cannot judge safety from the black and white pixel pattern.",
+        "Physical overlay tampering: Fraudsters paste rogue stickers over legitimate signs in cafes, parking meters, and stations.",
+        "HTTPS is not proof of safety: Phishing attackers also use HTTPS encryption; TLS secures the pipe, not destination intent.",
+        "Inert inspection principle: Always preview and inspect the root domain before allowing your browser to open it."
+      ]
+    },
+    "guide_b": {
+      "id": "qr-phishing",
+      "badge": "Threat Profile",
+      "title": "QR Phishing (Quishing) & Fake Login Pages",
+      "desc": "How cybercriminals use QR codes to harvest usernames, passwords, and multi-factor authentication tokens.",
+      "points": [
+        "What is Quishing: QR-enabled phishing designed to bypass traditional text-based email spam filters and OCR scanners.",
+        "Psychological triggers: Attackers manufacture artificial urgency (e.g. 'Account suspended! Scan to verify in 24 hours').",
+        "Lookalike domains: Subtle character substitutions (typosquatting) designed to impersonate banks, HR portals, and streaming services.",
+        "Two-factor theft: Fraudulent pages that ask for immediate OTP entry to hijack active sessions.",
+        "Protective action: Never enter credentials on a page opened via a spontaneous or unsolicited QR code."
+      ]
+    },
+    "guide_c": {
+      "id": "upi-payment",
+      "badge": "Financial Safety",
+      "title": "UPI and Payment QR Safety",
+      "desc": "Essential precautions for scanning payment QR codes and avoiding common refund and merchant scams.",
+      "points": [
+        "Receiving money NEVER requires your UPI PIN: Entering your UPI PIN always authorizes money leaving your account.",
+        "Verify recipient name and VPA: Always cross-check the payee name displayed inside your banking app before authorizing.",
+        "Dynamic amount injection: Fraudulent QR codes can pre-populate unexpected debit amounts.",
+        "Fake merchant standees: Scammers stick rogue QR stickers over shopkeeper payment stands.",
+        "Fake refund scams: Never scan a QR code sent over WhatsApp or SMS to claim a 'cashback' or 'lottery prize'."
+      ]
+    },
+    "guide_d": {
+      "id": "suspicious-urls",
+      "badge": "Technical Literacy",
+      "title": "Suspicious URL Recognition",
+      "desc": "Learn how to spot deceptive domain structures, homograph attacks, and risky subdomains.",
+      "points": [
+        "Understand registered domains: In 'chase.com.auth-update.xyz', the real website is 'auth-update.xyz', NOT Chase.",
+        "IP address hostnames: Legitimate public consumer portals rarely use raw IP addresses (e.g., http://192.0.2.1/).",
+        "URL shorteners: Services like bit.ly hide the actual endpoint. Use safe redirect inspection to preview where they lead.",
+        "Punycode homoglyphs: International characters that mimic standard Latin alphabet letters to deceive eyesight.",
+        "Suspicious ports: Web destinations using non-standard ports (e.g., :8080, :8443) should be treated with high caution."
+      ]
+    },
+    "guide_e": {
+      "id": "wifi-safety",
+      "badge": "Network Security",
+      "title": "Wi-Fi QR Code Safety",
+      "desc": "How wireless connection QR codes work and why public Wi-Fi credentials require discretion.",
+      "points": [
+        "Embedded network credentials: Scanning a Wi-Fi QR code automatically imports network SSIDs and WPA/WPA2 passwords.",
+        "Evil Twin attacks: Attackers set up rogue hotspots with names matching authentic public venues to intercept traffic.",
+        "Privacy discretion: Never upload or share QR codes containing private home or corporate Wi-Fi keys.",
+        "QShield masking: QShield automatically masks Wi-Fi passwords to prevent accidental shoulder-surfing and log leakage."
+      ]
+    },
+    "guide_f": {
+      "id": "public-qr-risks",
+      "badge": "Physical Threats",
+      "title": "Public QR Code Risks",
+      "desc": "Recognizing physical tampering on parking meters, restaurant tables, posters, and charging kiosks.",
+      "points": [
+        "Tactile inspection: Feel the sign. Is there an adhesive sticker raised over the printed surface?",
+        "Parking & transport scams: Fake payment stickers pasted over legitimate parking payment signage.",
+        "Menu & table replacement: Counterfeit tabletop stands directing diners to fake ordering sites that harvest credit cards.",
+        "Official alternatives: When in doubt, manually type the organization's verified domain or use their official app store app."
+      ]
+    },
+    "guide_g": {
+      "id": "privacy-protection",
+      "badge": "Data Hygiene",
+      "title": "Privacy & Personal Information Protection",
+      "desc": "Understanding what data QR codes transmit and maintaining strict operational hygiene.",
+      "points": [
+        "URL query tokens: URLs can embed private session IDs, user emails, or reset tokens in query parameters.",
+        "External reputation lookups: Threat intelligence checks share the URL with third-party feeds; QShield requires explicit consent.",
+        "Redirect tracing boundaries: Outbound redirect inspectors must enforce strict SSRF blocks against private networks.",
+        "In-memory processing: QShield processes QR images strictly in memory and discards image bytes after decoding."
+      ]
+    },
+    "guide_h": {
+      "id": "incident-response",
+      "badge": "Emergency Action",
+      "title": "What to Do After Scanning a Suspicious QR",
+      "desc": "Immediate, practical recovery steps if you scanned an untrusted code or entered information.",
+      "points": [
+        "1. Disconnect immediately: Close the browser tab. Do not click 'Confirm', 'Cancel', or any button inside the page.",
+        "2. Change compromised passwords: If you entered credentials, immediately change your password on the genuine site.",
+        "3. Freeze payment instruments: If financial information was entered, contact your bank or UPI provider immediately.",
+        "4. Revoke active sessions: Check your online account security settings and click 'Log out of all other devices'.",
+        "5. Official cybercrime reporting (India): Report fraudulent transactions and quishing incidents at cybercrime.gov.in or call National Cyber Crime Helpline 1930."
+      ]
+    }
+  },
+
+  "scenarios_heading": "Spot the QR Scam (Interactive Scenarios)",
+  "scenarios_desc": "Analyze realistic situations, identify red flags, and practice making the safest cybersecurity decision.",
+
+  "scenarios": [
+    {
+      "id": "scen_parking",
+      "title": "Scenario 1: The Parking Meter Sticker",
+      "situation": "You park your car in a downtown municipal parking zone. On the parking meter, you see a shiny square sticker with a QR code and the text 'Fast Mobile Pay'. Looking closely, the sticker covers the original printed logo.",
+      "question": "What is the safest action to take?",
+      "options": [
+        "Scan the QR code and pay quickly so you don't receive a parking ticket.",
+        "Avoid scanning the sticker. Use the physical payment slot or download the city's verified parking app from the app store.",
+        "Peel off the sticker to see what is underneath, then scan the peeled sticker."
+      ],
+      "correct_index": 1,
+      "explanation": "Sticker overlays on parking meters are a widespread scam. Fraudsters place fake stickers to steal credit card details or redirect parking fees to their own accounts. Always use official parking apps or payment machines directly."
+    },
+    {
+      "id": "scen_bank_urgency",
+      "title": "Scenario 2: The Urgent Account Suspension Letter",
+      "situation": "You receive a printed letter or email displaying your bank's logo. It warns: 'Your KYC has expired. Your account will be frozen in 12 hours. Scan this QR code immediately to complete facial re-verification.'",
+      "question": "How should you respond to this message?",
+      "options": [
+        "Scan the QR code immediately to prevent your bank account from being frozen.",
+        "Treat the urgency as a major red flag. Do not scan the QR code. Open your bank's verified official app or visit your branch.",
+        "Reply with your account number and ask if the QR code is authentic."
+      ],
+      "correct_index": 1,
+      "explanation": "Banks never enforce urgent KYC re-verification via anonymous QR codes with artificial countdowns. Attackers use fear and urgency to trick users into entering credentials on lookalike pages."
+    },
+    {
+      "id": "scen_upi_receive",
+      "title": "Scenario 3: Selling an Item Online & QR Payment",
+      "situation": "You listed an old sofa on an online marketplace. A buyer contacts you and says: 'I am sending you the money right now. Scan this QR code in Google Pay or PhonePe to receive the Rs 8,000 payment into your bank account.'",
+      "question": "What should you do?",
+      "options": [
+        "Scan the QR code and enter your UPI PIN to accept the transfer.",
+        "Refuse to scan the QR code. You NEVER need to scan a QR code or enter a UPI PIN to receive money.",
+        "Ask the buyer to send a different QR code."
+      ],
+      "correct_index": 1,
+      "explanation": "This is India's most prevalent OLX/marketplace scam. In UPI architecture, receiving funds is completely passive; scanning a QR code or typing your UPI PIN will ONLY debit money from your account."
+    },
+    {
+      "id": "scen_cafe_wifi",
+      "title": "Scenario 4: The Unfamiliar Public Wi-Fi QR",
+      "situation": "At an airport lounge, you see a laminated paper on a random table that reads 'Free High-Speed VIP Wi-Fi - Scan Here'. The cafe staff did not mention it, and the network SSID has a slight spelling variation from the official lounge name.",
+      "question": "What is the best course of action?",
+      "options": [
+        "Scan the QR code to connect and immediately log into your company email.",
+        "Ask the official airport lounge staff for their verified network details and avoid scanning unsolicited tabletop codes.",
+        "Connect to the Wi-Fi and conduct banking transactions."
+      ],
+      "correct_index": 1,
+      "explanation": "Attackers place rogue Wi-Fi QR codes (Evil Twin hotspots) in airports and cafes to intercept unencrypted traffic and perform Man-in-the-Middle credential theft. Always verify wireless networks with staff."
+    },
+    {
+      "id": "scen_subdomain_trap",
+      "title": "Scenario 5: The Subdomain Trick",
+      "situation": "You scan a QR code from a poster announcing an educational webinar. The URL preview shows 'https://google.com.webinar-portal-update.xyz/login'.",
+      "question": "Is this an authentic Google service?",
+      "options": [
+        "Yes, because 'google.com' is written right at the beginning of the address.",
+        "No. The real domain is 'webinar-portal-update.xyz'. 'google.com' is merely a deceptive subdomain prefix.",
+        "Yes, because the URL starts with https://."
+      ],
+      "correct_index": 1,
+      "explanation": "Browsers navigate to the registered root domain immediately before the Top-Level Domain (TLD). Here, the root domain is 'webinar-portal-update.xyz', while 'google.com' is an unauthorized subdomain designed to mislead your eyesight."
+    },
+    {
+      "id": "scen_lottery_scratch",
+      "title": "Scenario 6: The Festive Reward Coupon",
+      "situation": "You receive a postal envelope with a festival scratch card claiming you won Rs 25,000 in a brand lucky draw. It instructs you to scan a QR code to claim your prize, which opens a webpage asking for your debit card number and CVV.",
+      "question": "What is the safest step?",
+      "options": [
+        "Enter your card details quickly before the offer expires.",
+        "Immediately discard the scratch card. Legitimate lotteries never require debit card numbers or CVVs to disburse awards.",
+        "Share the QR code with your friends so they can win too."
+      ],
+      "correct_index": 1,
+      "explanation": "Lottery scratch-card scams are designed to harvest financial instrument details. Never input card credentials, expiry dates, or CVVs to claim prizes."
+    }
+  ],
+
+  "checklist_heading": "Before You Trust a QR Code (Interactive Checklist)",
+  "checklist_desc": "Review these safety checks before scanning or interacting with an unfamiliar QR code in physical or digital spaces.",
+  "checklist_progress_label": "Checklist Verification Progress",
+  "checklist_reset_btn": "Reset Verification Checklist",
+  "checklist_items": [
+    "I recognize the physical or digital source that provided this QR code.",
+    "The physical sign or surface does not show signs of sticker tampering or overlay.",
+    "I inspected the decoded web address before allowing my browser to open it.",
+    "The root registered domain accurately matches the authentic organization.",
+    "The page does NOT request unsolicited passwords, OTPs, or credential re-entry.",
+    "For payment requests: I verified the payee VPA and amount inside my official payment app.",
+    "I understand that HTTPS encryption secures transmission but does not prove website legitimacy."
+  ],
+  "camera_scanner": {
+    "tab_camera": "Live Camera Scan",
+    "tab_upload": "Upload QR Image",
+    "tab_manual": "Analyze URL Manually",
+    "btn_start_camera": "Start Camera",
+    "btn_stop_camera": "Stop Camera",
+    "btn_scan_again": "Scan Again",
+    "status_idle": "Camera Off. Click 'Start Camera' to begin.",
+    "status_requesting": "Requesting camera permission...",
+    "status_active": "Camera active. Point your camera at a QR code.",
+    "status_detected": "QR code detected! Analyzing content...",
+    "status_complete": "Analysis complete. Review security report below.",
+    "reticle_hint": "Position the QR code inside the frame",
+    "err_permission_denied": "Camera access was denied. Please allow camera permissions in your browser or use file upload.",
+    "err_not_found": "No camera device detected on this system. Please use file upload.",
+    "err_in_use": "Camera is currently busy or being used by another application.",
+    "err_insecure_context": "Camera access requires HTTPS or localhost."
+  }
+}

@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="shieldGrad" x1="6" y1="4" x2="42" y2="44" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#14B8A6"/>
+      <stop offset="100%" stop-color="#0B1220"/>
+    </linearGradient>
+    <linearGradient id="cyanAccent" x1="12" y1="12" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#22D3EE"/>
+      <stop offset="100%" stop-color="#14B8A6"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Outer Shield Geometry -->
+  <path d="M24 4L8 10V22C8 32.5 14.8 42.1 24 45C33.2 42.1 40 32.5 40 22V10L24 4Z" 
+        fill="#111B2E" 
+        stroke="url(#shieldGrad)" 
+        stroke-width="2.5" 
+        stroke-linejoin="round"/>
+
+  <!-- Scanning / QR Stylized Core Pattern -->
+  <!-- Top Left Finder Target -->
+  <rect x="15" y="14" width="6" height="6" rx="1.5" stroke="#22D3EE" stroke-width="1.8" fill="none"/>
+  <rect x="17" y="16" width="2" height="2" fill="#22D3EE"/>
+
+  <!-- Top Right Finder Target -->
+  <rect x="27" y="14" width="6" height="6" rx="1.5" stroke="#22D3EE" stroke-width="1.8" fill="none"/>
+  <rect x="29" y="16" width="2" height="2" fill="#22D3EE"/>
+
+  <!-- Bottom Left Finder Target -->
+  <rect x="15" y="26" width="6" height="6" rx="1.5" stroke="#22D3EE" stroke-width="1.8" fill="none"/>
+  <rect x="17" y="28" width="2" height="2" fill="#22D3EE"/>
+
+  <!-- Data Bit Nodes -->
+  <rect x="23" y="22" width="2.5" height="2.5" rx="0.5" fill="#14B8A6"/>
+  <rect x="27" y="24" width="2.5" height="2.5" rx="0.5" fill="#14B8A6"/>
+  <rect x="23" y="28" width="2.5" height="2.5" rx="0.5" fill="#22D3EE"/>
+  <rect x="29" y="29" width="3.5" height="3.5" rx="0.5" fill="#14B8A6"/>
+
+  <!-- Protective Crosshair / Laser Reticle -->
+  <path d="M11 23H13M35 23H37" stroke="#22D3EE" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

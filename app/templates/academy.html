@@ -1,0 +1,224 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Cyber Safety Academy — QShield Interactive Quizzes{% endblock %}
+
+{% block extra_css %}
+<style>
+  /* ── Academy Layout ── */
+  .academy-hero { padding: var(--space-3xl) 0 var(--space-xl); text-align: center; }
+  .academy-lang-bar { display: flex; justify-content: flex-end; align-items: center; gap: var(--space-sm); margin-bottom: var(--space-lg); }
+  .academy-lang-btn { background: var(--color-bg-card); border: 1px solid var(--color-border); color: var(--color-text-secondary); padding: 0.4rem 0.9rem; border-radius: var(--radius-full); font-size: var(--text-sm); font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
+  .academy-lang-btn:hover { border-color: var(--color-teal); color: var(--color-teal); }
+  .academy-lang-btn.active { background: var(--color-teal-soft); border-color: var(--color-teal); color: var(--color-teal); }
+
+  /* ── Category Cards ── */
+  .cat-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-xl); display: flex; flex-direction: column; gap: var(--space-sm); transition: all 0.2s ease; }
+  .cat-card:hover { border-color: var(--color-teal); transform: translateY(-2px); }
+  .cat-meta { display: flex; gap: var(--space-sm); flex-wrap: wrap; font-size: 0.78rem; color: var(--color-text-secondary); }
+  .cat-meta-tag { background: var(--color-bg-surface); padding: 0.15rem 0.55rem; border-radius: var(--radius-sm); }
+
+  /* ── Progress Dashboard ── */
+  .progress-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-xl); }
+  .progress-stat { text-align: center; padding: var(--space-md); }
+  .progress-stat .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--color-teal); display: block; }
+  .progress-stat .stat-label { font-size: var(--text-sm); color: var(--color-text-secondary); }
+
+  /* ── Quiz Interface ── */
+  .quiz-container { display: none; }
+  .quiz-progress-bar-wrap { background: var(--color-bg-surface); border-radius: var(--radius-full); height: 8px; overflow: hidden; margin: var(--space-sm) 0 var(--space-md); border: 1px solid var(--color-border); }
+  .quiz-progress-fill { height: 100%; width: 0%; background: var(--color-teal); transition: width 0.35s ease; }
+  .quiz-question-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-2xl); margin-bottom: var(--space-lg); }
+  .quiz-option-label { display: flex; align-items: flex-start; gap: var(--space-md); padding: 0.85rem 1.1rem; border: 2px solid var(--color-border); border-radius: var(--radius-md); cursor: pointer; transition: all 0.2s ease; margin-bottom: var(--space-sm); }
+  .quiz-option-label:hover { background: var(--color-bg-surface); border-color: var(--color-teal-dim); }
+  .quiz-option-label.selected { border-color: var(--color-teal); background: var(--color-teal-soft); }
+  .quiz-option-label.correct-reveal { border-color: #22c55e; background: rgba(34,197,94,0.1); }
+  .quiz-option-label.incorrect-reveal { border-color: #ef4444; background: rgba(239,68,68,0.1); }
+  .quiz-option-label.disabled { pointer-events: none; opacity: 0.85; }
+  .quiz-option-marker { min-width: 1.6rem; height: 1.6rem; border-radius: var(--radius-full); border: 2px solid var(--color-border); display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.8rem; color: var(--color-text-secondary); flex-shrink: 0; transition: all 0.2s ease; }
+  .quiz-option-label.selected .quiz-option-marker { border-color: var(--color-teal); color: var(--color-teal); background: var(--color-teal-soft); }
+  .quiz-option-label.correct-reveal .quiz-option-marker { border-color: #22c55e; color: #fff; background: #22c55e; }
+  .quiz-option-label.incorrect-reveal .quiz-option-marker { border-color: #ef4444; color: #fff; background: #ef4444; }
+  .quiz-feedback-box { display: none; padding: 1.1rem 1.25rem; border-radius: var(--radius-md); font-size: var(--text-sm); line-height: 1.6; margin-top: var(--space-md); }
+  .quiz-feedback-box.correct { display: block; background: rgba(34,197,94,0.1); border: 1px solid #22c55e; }
+  .quiz-feedback-box.incorrect { display: block; background: rgba(239,68,68,0.1); border: 1px solid #ef4444; }
+
+  /* ── Summary ── */
+  .summary-container { display: none; }
+  .summary-card { background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-2xl); }
+  .summary-score-ring { width: 120px; height: 120px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 800; margin: 0 auto var(--space-md); }
+  .review-item { background: var(--color-bg-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-lg); margin-bottom: var(--space-md); }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    .quiz-progress-fill, .cat-card, .quiz-option-label { transition: none; }
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+  <div class="container" style="max-width: 1050px;">
+
+    <!-- Language Switcher -->
+    <div class="academy-lang-bar">
+      <span style="font-size: var(--text-sm); color: var(--color-text-muted);">Language / மொழி:</span>
+      <button type="button" class="academy-lang-btn active" id="acLangEn" onclick="acSetLang('en')" aria-label="English">English</button>
+      <button type="button" class="academy-lang-btn" id="acLangTa" onclick="acSetLang('ta')" aria-label="Tamil">தமிழ்</button>
+    </div>
+
+    <!-- ═══ VIEW 1: Dashboard ═══ -->
+    <div id="academyDashboard">
+
+      <!-- Hero -->
+      <div class="academy-hero">
+        <div class="hero-badge" id="acHeroBadge">Interactive Cybersecurity Learning</div>
+        <h1 style="margin: var(--space-md) 0 var(--space-xs); font-size: 2.4rem;" id="acHeroTitle">QShield Cyber Safety Academy</h1>
+        <p style="font-size: 1.05rem; color: var(--color-text-secondary); max-width: 680px; margin: 0 auto var(--space-xl);" id="acHeroSubtitle">
+          Learn Smart. Scan Safe. Stay Protected.
+        </p>
+      </div>
+
+      <!-- Progress Summary Row -->
+      <div class="progress-card" style="margin-bottom: var(--space-2xl);">
+        <h3 style="margin-bottom: var(--space-md); font-size: 1.1rem;" id="acProgressTitle">Your Learning Progress</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: var(--space-md);">
+          <div class="progress-stat"><span class="stat-num" id="statTotalQ">0</span><span class="stat-label" id="statTotalLabel">Total Questions</span></div>
+          <div class="progress-stat"><span class="stat-num" id="statCatsDone">0</span><span class="stat-label" id="statCatsLabel">Categories Completed</span></div>
+          <div class="progress-stat"><span class="stat-num" id="statBestPct">—</span><span class="stat-label" id="statBestLabel">Best Score</span></div>
+          <div class="progress-stat"><span class="stat-num" id="statAttempts">0</span><span class="stat-label" id="statAttLabel">Total Attempts</span></div>
+        </div>
+        <div style="margin-top: var(--space-md); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-sm);">
+          <a href="/awareness" style="font-size: var(--text-sm); color: var(--color-teal); font-weight: 600;">&larr; <span id="acAwarenessLink">Back to Awareness Centre</span></a>
+          <button type="button" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.35rem 0.8rem;" onclick="acResetProgress()" id="acResetBtn">Reset Learning Progress</button>
+        </div>
+        <p style="font-size: 0.75rem; color: var(--color-text-muted); margin-top: var(--space-sm);" id="acLocalNotice">
+          Progress is stored locally in your browser. Clearing browser data or switching devices will reset your progress.
+        </p>
+      </div>
+
+      <!-- Category Grid -->
+      <h2 style="margin-bottom: var(--space-md);" id="acCatHeading">Quiz Categories</h2>
+      <div class="grid-2" id="categoriesGrid" style="gap: var(--space-xl); margin-bottom: var(--space-2xl);">
+        <!-- Rendered by JS -->
+      </div>
+
+      <!-- Empty state -->
+      <div id="acEmptyState" style="display: none; text-align: center; padding: var(--space-3xl); background: var(--color-bg-card); border-radius: var(--radius-lg); border: 1px dashed var(--color-border);">
+        <h3 id="acEmptyTitle">Welcome to the Academy!</h3>
+        <p style="color: var(--color-text-secondary);" id="acEmptyDesc">Choose a category above to start your first quiz and begin learning.</p>
+      </div>
+    </div>
+
+    <!-- ═══ VIEW 2: Active Quiz ═══ -->
+    <div id="quizContainer" class="quiz-container">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--space-md); margin-bottom: var(--space-md);">
+        <div>
+          <div class="hero-badge" id="quizCatBadge" style="font-size: 0.75rem;">Category</div>
+          <h2 id="quizTitle" style="margin: var(--space-xs) 0 0; font-size: 1.5rem;">Quiz Title</h2>
+        </div>
+        <button type="button" class="btn btn-secondary" style="font-size: 0.8rem; padding: 0.35rem 0.8rem;" onclick="acExitQuiz()" id="quizExitBtn">✕ Exit Quiz</button>
+      </div>
+
+      <!-- Progress -->
+      <div style="display: flex; justify-content: space-between; font-size: var(--text-sm); font-weight: 600;">
+        <span id="quizProgressLabel">Question 1 of 6</span>
+        <span id="quizScoreLabel">Score: 0/0</span>
+      </div>
+      <div class="quiz-progress-bar-wrap" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" id="quizProgressBarWrap">
+        <div id="quizProgressFill" class="quiz-progress-fill"></div>
+      </div>
+
+      <!-- Question Card -->
+      <div class="quiz-question-card">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-sm); flex-wrap: wrap; gap: var(--space-xs);">
+          <span id="quizDiffBadge" class="hero-badge" style="font-size: 0.7rem;">beginner</span>
+        </div>
+        <h3 id="quizQuestionText" style="font-size: 1.15rem; line-height: 1.55; margin-bottom: var(--space-lg);"></h3>
+
+        <div id="quizOptionsContainer" role="radiogroup" aria-label="Answer options">
+          <!-- Options rendered by JS -->
+        </div>
+
+        <!-- Feedback -->
+        <div id="quizFeedback" class="quiz-feedback-box"></div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div style="display: flex; justify-content: flex-end; gap: var(--space-md);">
+        <button type="button" class="btn btn-primary" id="quizSubmitBtn" onclick="acSubmitAnswer()" disabled>Submit Answer</button>
+        <button type="button" class="btn btn-primary" id="quizNextBtn" onclick="acNextQuestion()" style="display: none;">Next Question →</button>
+        <button type="button" class="btn btn-primary" id="quizFinishBtn" onclick="acFinishQuiz()" style="display: none;">View Results</button>
+      </div>
+    </div>
+
+    <!-- ═══ VIEW 3: Results Summary ═══ -->
+    <div id="summaryContainer" class="summary-container">
+      <div class="summary-card">
+        <div style="text-align: center; margin-bottom: var(--space-xl);">
+          <h2 id="summaryTitle" style="margin-bottom: var(--space-xs);">Quiz Complete</h2>
+          <p id="summaryCatName" style="color: var(--color-text-secondary);"></p>
+        </div>
+
+        <!-- Score Ring -->
+        <div id="summaryScoreRing" class="summary-score-ring" style="border: 6px solid var(--color-teal); color: var(--color-teal);">0%</div>
+        <div id="summaryPerfLabel" style="text-align: center; font-weight: 700; font-size: 1.1rem; margin-bottom: var(--space-md);"></div>
+
+        <!-- Stats -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: var(--space-sm); margin-bottom: var(--space-xl);">
+          <div class="progress-stat"><span class="stat-num" id="sumCorrect" style="color: #22c55e;">0</span><span class="stat-label" id="sumCorrectLbl">Correct</span></div>
+          <div class="progress-stat"><span class="stat-num" id="sumIncorrect" style="color: #ef4444;">0</span><span class="stat-label" id="sumIncorrectLbl">Incorrect</span></div>
+          <div class="progress-stat"><span class="stat-num" id="sumTotal">0</span><span class="stat-label" id="sumTotalLbl">Total</span></div>
+          <div class="progress-stat"><span class="stat-num" id="sumTimeTaken">—</span><span class="stat-label" id="sumTimeLbl">Time</span></div>
+        </div>
+
+        <!-- Summary Text -->
+        <div style="background: var(--color-bg-surface); border-radius: var(--radius-md); padding: var(--space-lg); margin-bottom: var(--space-xl); border: 1px solid var(--color-border);">
+          <p id="summarySummaryText" style="margin: 0; line-height: 1.6;"></p>
+        </div>
+
+        <!-- Topics Review -->
+        <div id="summaryTopicsCorrect" style="margin-bottom: var(--space-md); display: none;">
+          <h4 style="color: #22c55e; font-size: 0.9rem; margin-bottom: var(--space-xs);" id="sumTopicsCorrectTitle">✓ Topics Answered Correctly</h4>
+          <ul id="sumTopicsCorrectList" style="font-size: var(--text-sm); color: var(--color-text-secondary); padding-left: 1.2rem;"></ul>
+        </div>
+        <div id="summaryTopicsPractice" style="margin-bottom: var(--space-xl); display: none;">
+          <h4 style="color: #ef4444; font-size: 0.9rem; margin-bottom: var(--space-xs);" id="sumTopicsPracticeTitle">✗ Topics Needing Practice</h4>
+          <ul id="sumTopicsPracticeList" style="font-size: var(--text-sm); color: var(--color-text-secondary); padding-left: 1.2rem;"></ul>
+        </div>
+
+        <!-- Incorrect Reviews -->
+        <div id="summaryReviewSection" style="display: none; margin-bottom: var(--space-xl);">
+          <h3 id="sumReviewTitle" style="margin-bottom: var(--space-md);">Review Incorrect Answers</h3>
+          <div id="summaryReviewList">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div style="display: flex; justify-content: center; gap: var(--space-md); flex-wrap: wrap;">
+          <button type="button" class="btn btn-primary" onclick="acRetryQuiz()" id="sumRetryBtn">🔁 Retry Quiz</button>
+          <button type="button" class="btn btn-secondary" onclick="acBackToDashboard()" id="sumBackBtn">← Back to Academy</button>
+          <a href="/awareness" class="btn btn-secondary" id="sumAwarenessBtn">📖 Awareness Centre</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reset Confirmation Modal -->
+    <div id="resetModal" style="display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 1000; display: none; align-items: center; justify-content: center;">
+      <div style="background: var(--color-bg-card); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-2xl); max-width: 420px; width: 90%; text-align: center;">
+        <h3 id="resetModalTitle" style="margin-bottom: var(--space-sm);">Reset Learning Progress?</h3>
+        <p id="resetModalDesc" style="color: var(--color-text-secondary); font-size: var(--text-sm); margin-bottom: var(--space-xl);">This will permanently delete all quiz scores, attempts, and progress from your browser. This action cannot be undone.</p>
+        <div style="display: flex; justify-content: center; gap: var(--space-md);">
+          <button type="button" class="btn btn-primary" style="background: #ef4444;" onclick="acConfirmReset()" id="resetConfirmBtn">Yes, Reset Everything</button>
+          <button type="button" class="btn btn-secondary" onclick="acCancelReset()" id="resetCancelBtn">Cancel</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/academy.js') }}"></script>
+{% endblock %}

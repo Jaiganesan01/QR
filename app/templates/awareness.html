@@ -1,0 +1,286 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Awareness Centre — Quishing Prevention & Education{% endblock %}
+
+{% block extra_css %}
+<style>
+  .awareness-hero {
+    padding: var(--space-3xl) 0 var(--space-2xl);
+    text-align: center;
+    position: relative;
+  }
+  .lang-switcher-bar {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--space-sm);
+    margin-bottom: var(--space-lg);
+  }
+  .lang-toggle-btn {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    color: var(--color-text-secondary);
+    padding: 0.4rem 0.9rem;
+    border-radius: var(--radius-full);
+    font-size: var(--text-sm);
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  .lang-toggle-btn:hover {
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+  }
+  .lang-toggle-btn.active {
+    background: var(--color-teal-soft);
+    border-color: var(--color-teal);
+    color: var(--color-teal);
+    box-shadow: 0 0 10px rgba(0, 245, 160, 0.2);
+  }
+  .search-container {
+    max-width: 680px;
+    margin: 0 auto var(--space-2xl);
+    position: relative;
+  }
+  .search-input {
+    width: 100%;
+    padding: 0.85rem 1.25rem 0.85rem 3rem;
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    color: var(--color-text-primary);
+    font-size: var(--text-base);
+    transition: all 0.2s ease;
+  }
+  .search-input:focus {
+    outline: none;
+    border-color: var(--color-teal);
+    box-shadow: 0 0 0 3px rgba(0, 245, 160, 0.15);
+  }
+  .search-icon {
+    position: absolute;
+    left: 1.1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-text-muted);
+    pointer-events: none;
+  }
+  .guide-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    transition: all 0.2s ease;
+  }
+  .guide-card:hover {
+    border-color: var(--color-teal);
+    transform: translateY(-2px);
+  }
+  .guide-points {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  .guide-points li {
+    font-size: var(--text-sm);
+    color: var(--color-text-secondary);
+    position: relative;
+    padding-left: 1.25rem;
+    line-height: 1.5;
+  }
+  .guide-points li::before {
+    content: "•";
+    color: var(--color-teal);
+    font-weight: bold;
+    position: absolute;
+    left: 0;
+  }
+  .scenario-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl);
+    margin-bottom: var(--space-xl);
+    transition: all 0.2s ease;
+  }
+  .scenario-card:hover {
+    border-color: var(--color-teal);
+  }
+  .option-label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-sm);
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease;
+    margin-bottom: var(--space-sm);
+  }
+  .option-label:hover {
+    background: var(--color-bg-surface);
+    border-color: var(--color-teal-dim);
+  }
+  .scenario-feedback {
+    display: none;
+    margin-top: var(--space-md);
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+  .scenario-feedback.correct {
+    display: block;
+    background: rgba(0, 245, 160, 0.1);
+    border: 1px solid var(--color-teal);
+    color: var(--color-text-primary);
+  }
+  .scenario-feedback.incorrect {
+    display: block;
+    background: rgba(255, 68, 68, 0.1);
+    border: 1px solid #ff4444;
+    color: var(--color-text-primary);
+  }
+  .checklist-card {
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-2xl);
+  }
+  .checklist-progress-bar-wrap {
+    background: var(--color-bg-surface);
+    border-radius: var(--radius-full);
+    height: 10px;
+    overflow: hidden;
+    margin: var(--space-sm) 0 var(--space-xl);
+    border: 1px solid var(--color-border);
+  }
+  .checklist-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--color-teal);
+    transition: width 0.3s ease;
+  }
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-md);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  .checklist-item:last-child {
+    border-bottom: none;
+  }
+  .checklist-checkbox {
+    width: 1.15rem;
+    height: 1.15rem;
+    accent-color: var(--color-teal);
+    cursor: pointer;
+    margin-top: 0.15rem;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+  <div class="container" style="max-width: 1050px;">
+    
+    <!-- Language Switcher Bar -->
+    <div class="lang-switcher-bar">
+      <span style="font-size: var(--text-sm); color: var(--color-text-muted);" data-i18n="language_selector_label">Language / மொழி:</span>
+      <button type="button" class="lang-toggle-btn active" id="btnLangEn" onclick="switchLanguage('en')">English</button>
+      <button type="button" class="lang-toggle-btn" id="btnLangTa" onclick="switchLanguage('ta')">தமிழ்</button>
+    </div>
+
+    <!-- Hero Section -->
+    <div class="awareness-hero">
+      <div class="hero-badge" data-i18n="hero_badge">Bilingual Cyber Awareness & Defense</div>
+      <h1 style="margin: var(--space-md) 0 var(--space-sm); font-size: 2.5rem;" data-i18n="hero_heading">Think Before You Scan.</h1>
+      <p style="font-size: 1.1rem; color: var(--color-text-secondary); max-width: 700px; margin: 0 auto var(--space-xl);" data-i18n="hero_desc">
+        Learn how QR scams work, recognize suspicious links, and protect your personal information and payments.
+      </p>
+
+      <div style="display: flex; justify-content: center; gap: var(--space-md); flex-wrap: wrap;">
+        <a href="#guidesSection" class="btn btn-primary" data-i18n="btn_explore_guides">Explore Safety Guides</a>
+        <a href="#scenariosSection" class="btn btn-secondary" data-i18n="btn_test_knowledge">Spot the Scam Scenarios</a>
+        <a href="#checklistSection" class="btn btn-secondary" data-i18n="btn_safety_checklist">Interactive Checklist</a>
+      </div>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+      </svg>
+      <input type="text" id="guideSearchInput" class="search-input" placeholder="Search guides (e.g. UPI, phishing, Wi-Fi, suspicious URLs)..." data-i18n-placeholder="search_placeholder" aria-label="Search guides">
+    </div>
+
+    <div id="searchEmptyState" style="display: none; text-align: center; padding: var(--space-2xl); background: var(--color-bg-card); border-radius: var(--radius-lg); margin-bottom: var(--space-2xl); border: 1px dashed var(--color-border);">
+      <p style="color: var(--color-text-secondary); margin: 0;" data-i18n="search_no_results">No guides matched your search query. Try terms like 'payment', 'login', or 'tampering'.</p>
+    </div>
+
+    <!-- 8 Learning Guides Section -->
+    <div id="guidesSection" style="margin-bottom: var(--space-3xl); scroll-margin-top: 80px;">
+      <div style="margin-bottom: var(--space-xl);">
+        <h2 style="margin-bottom: var(--space-xs);" data-i18n="categories_heading">Essential Learning Categories</h2>
+        <p style="color: var(--color-text-secondary); margin: 0;" data-i18n="categories_desc">Practical, step-by-step guidance designed to empower everyday digital citizens against modern social engineering.</p>
+      </div>
+
+      <div class="grid-2" id="guidesGrid" style="gap: var(--space-xl);">
+        <!-- Guide cards dynamically rendered and translatable via awareness.js -->
+      </div>
+    </div>
+
+    <!-- 6 Interactive Scenarios Section -->
+    <div id="scenariosSection" style="margin-bottom: var(--space-3xl); scroll-margin-top: 80px;">
+      <div style="margin-bottom: var(--space-xl);">
+        <h2 style="margin-bottom: var(--space-xs);" data-i18n="scenarios_heading">Spot the QR Scam (Interactive Scenarios)</h2>
+        <p style="color: var(--color-text-secondary); margin: 0;" data-i18n="scenarios_desc">Analyze realistic situations, identify red flags, and practice making the safest cybersecurity decision.</p>
+      </div>
+
+      <div id="scenariosContainer">
+        <!-- Scenario cards dynamically rendered via awareness.js -->
+      </div>
+    </div>
+
+    <!-- Interactive Checklist Section -->
+    <div id="checklistSection" style="scroll-margin-top: 80px; margin-bottom: var(--space-2xl);">
+      <div class="checklist-card">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: var(--space-md);">
+          <div>
+            <h2 style="margin-bottom: var(--space-xs);" data-i18n="checklist_heading">Before You Trust a QR Code (Interactive Checklist)</h2>
+            <p style="color: var(--color-text-secondary); margin: 0;" data-i18n="checklist_desc">Review these safety checks before scanning or interacting with an unfamiliar QR code in physical or digital spaces.</p>
+          </div>
+          <button type="button" class="btn btn-secondary" onclick="resetChecklist()" style="padding: 0.4rem 0.8rem; font-size: var(--text-sm);" data-i18n="checklist_reset_btn">Reset Checklist</button>
+        </div>
+
+        <div style="margin-top: var(--space-xl);">
+          <div style="display: flex; justify-content: space-between; font-size: var(--text-sm); font-weight: 600;">
+            <span data-i18n="checklist_progress_label">Checklist Verification Progress</span>
+            <span id="checklistPercentage">0% (0/7 Verified)</span>
+          </div>
+          <div class="checklist-progress-bar-wrap">
+            <div id="checklistProgressFill" class="checklist-progress-fill"></div>
+          </div>
+        </div>
+
+        <div id="checklistItemsList">
+          <!-- Checklist items dynamically generated -->
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script src="{{ url_for('static', filename='js/awareness.js') }}"></script>
+{% endblock %}

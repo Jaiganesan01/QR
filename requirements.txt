@@ -1,0 +1,23 @@
+# Core Web Framework
+Flask==3.0.3
+Werkzeug==3.0.3
+python-dotenv==1.0.1
+
+# Production WSGI Server (Linux/macOS deployments like Render/Railway/Ubuntu)
+gunicorn==22.0.0; sys_platform != "win32"
+
+# QR Image Decoding & Processing
+opencv-python-headless==4.9.0.80
+numpy==1.26.4
+Pillow==10.3.0
+
+# URL & Network Heuristics (no arbitrary outbound requests)
+tldextract==5.1.2
+dnspython==2.6.1
+
+# PDF Report Generation
+reportlab==5.1.0
+
+# Testing & Test Fixture Generation
+pytest==8.2.0
+qrcode==8.2

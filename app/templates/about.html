@@ -1,0 +1,43 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}About QShield — Project & Architecture{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+  <div class="container" style="max-width: 860px;">
+    <div class="text-center" style="margin-bottom: var(--space-2xl);">
+      <div class="hero-badge">Project Information</div>
+      <h1 style="margin-bottom: var(--space-sm);">About QShield</h1>
+      <p>An educational cybersecurity initiative focused on QR payload verification and quishing awareness.</p>
+    </div>
+
+    <div class="card" style="margin-bottom: var(--space-xl);">
+      <h2 style="font-size: 1.35rem; margin-bottom: var(--space-sm);">Objective & Origin</h2>
+      <p style="margin-bottom: var(--space-md);">
+        As QR codes proliferated in daily transactions, ticketing, and physical authentication, attackers developed quishing attacks that bypass traditional perimeter defenses. QShield was engineered as a transparent, explainable platform to empower individuals and organizations to dissect QR codes before interaction.
+      </p>
+      <h3 style="font-size: 1.1rem; margin-bottom: var(--space-xs);">Core Technology Stack</h3>
+      <p style="font-size: 0.95rem;">
+        &bull; <strong>Backend:</strong> Python with Flask & Werkzeug<br>
+        &bull; <strong>Computer Vision:</strong> OpenCV & Pillow for image decoding<br>
+        &bull; <strong>Static Heuristics:</strong> Custom Python URL parser with tldextract and dnspython<br>
+        &bull; <strong>Frontend:</strong> Semantic HTML5, CSS3 Custom Properties, Vanilla JavaScript<br>
+        &bull; <strong>Database:</strong> SQLite3 with privacy-focused data scrubbing
+      </p>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size: 1.35rem; margin-bottom: var(--space-sm);">Guiding Security Principles</h2>
+      <p style="margin-bottom: var(--space-sm);">
+        1. <strong>Explainability over Obscurity:</strong> Scores are transparently decomposed into triggered indicators.
+      </p>
+      <p style="margin-bottom: var(--space-sm);">
+        2. <strong>Zero Automatic Navigation:</strong> URLs are treated strictly as text data; never rendered or auto-opened.
+      </p>
+      <p>
+        3. <strong>Responsible Threat Defense:</strong> Low risk scores reflect heuristic absence of known malicious patterns, not an absolute guarantee of website safety.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}

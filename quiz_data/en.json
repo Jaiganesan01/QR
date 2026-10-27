@@ -1,0 +1,618 @@
+{
+  "version": "1.0",
+  "language": "en",
+  "questions": [
+    {
+      "id": "q_basics_01",
+      "category_id": "qr-basics",
+      "topic": "QR Code Optical Appearance",
+      "difficulty": "beginner",
+      "question": "Can you determine if a QR code leads to a safe website just by examining its black-and-white square pixel pattern?",
+      "options": [
+        {"id": "A", "text": "Yes, malicious QR codes have irregular distorted corner patterns."},
+        {"id": "B", "text": "No, all QR codes visually encode binary data and look inert regardless of destination safety."},
+        {"id": "C", "text": "Yes, if the QR code is printed in high resolution, it is legitimate."},
+        {"id": "D", "text": "Yes, only authorized organizations can generate dense pixel grids."}
+      ],
+      "correct_answer": "B",
+      "explanation": "QR codes are simply 2D optical barcodes that encode text or URLs into binary matrix modules. Safe and malicious destinations look identical to human eyesight.",
+      "safety_takeaway": "Never judge safety by appearance; always preview and verify the root domain.",
+      "related_guide_id": "qr-basics"
+    },
+    {
+      "id": "q_basics_02",
+      "category_id": "qr-basics",
+      "topic": "Physical Sticker Overlays",
+      "difficulty": "beginner",
+      "question": "While paying for street parking, you notice a glossy QR sticker pasted directly over the city's metal payment plaque. What should you do?",
+      "options": [
+        {"id": "A", "text": "Scan the sticker immediately to avoid getting a parking ticket."},
+        {"id": "B", "text": "Do not scan the sticker; use the meter's physical payment slot or verified city app."},
+        {"id": "C", "text": "Peel the sticker off halfway to see the original logo, then scan it."},
+        {"id": "D", "text": "Scan the code, but only browse the page without paying."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Physical sticker overlay (quishing) is a widespread real-world attack where scammers paste fake stickers over parking meters and charging stations.",
+      "safety_takeaway": "Feel for tactile sticker edges; avoid scanning unsolicited adhesive overlays.",
+      "related_guide_id": "public-qr-risks"
+    },
+    {
+      "id": "q_basics_03",
+      "category_id": "qr-basics",
+      "topic": "HTTPS Encryption Misconceptions",
+      "difficulty": "intermediate",
+      "question": "A QR code opens a web page that starts with 'https://' and shows a secure padlock. Does this prove the destination is not a phishing site?",
+      "options": [
+        {"id": "A", "text": "Yes, the padlock icon guarantees the website has been vetted by security authorities."},
+        {"id": "B", "text": "No, HTTPS only encrypts data in transit; attackers easily obtain free TLS certificates for phishing domains."},
+        {"id": "C", "text": "Yes, browsers block unverified certificates automatically."},
+        {"id": "D", "text": "Yes, phishing websites cannot technically run on HTTPS protocol."}
+      ],
+      "correct_answer": "B",
+      "explanation": "HTTPS encryption secures communication against eavesdroppers between you and the server. It does not authenticate the operator's moral intentions or verify site legitimacy.",
+      "safety_takeaway": "HTTPS encrypts transmission; it does not validate domain trustworthiness.",
+      "related_guide_id": "suspicious-urls"
+    },
+    {
+      "id": "q_basics_04",
+      "category_id": "qr-basics",
+      "topic": "Optical Scanning Preview",
+      "difficulty": "beginner",
+      "question": "What is the recommended security practice when your smartphone camera scans a QR code?",
+      "options": [
+        {"id": "A", "text": "Configure the camera to automatically open all scanned URLs immediately in the browser."},
+        {"id": "B", "text": "Read the small URL preview banner and verify the registered domain before tapping to open."},
+        {"id": "C", "text": "Assume the QR code is safe if it was printed on glossy paper."},
+        {"id": "D", "text": "Always tap 'Open' first and check the site once it has fully loaded."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Modern smartphones display a preview banner containing the decoded URL. Inspecting the root domain beforehand prevents accidental visits to drive-by exploit or phishing pages.",
+      "safety_takeaway": "Always preview the destination link before permitting your browser to launch.",
+      "related_guide_id": "qr-basics"
+    },
+    {
+      "id": "q_basics_05",
+      "category_id": "qr-basics",
+      "topic": "QR Matrix Error Correction",
+      "difficulty": "intermediate",
+      "question": "Why do QR codes continue to scan successfully even when customized with brand logos or partially damaged?",
+      "options": [
+        {"id": "A", "text": "QR codes contain built-in Reed-Solomon error correction that reconstructs missing data."},
+        {"id": "B", "text": "Smartphone cameras query an online database to retrieve missing visual parts."},
+        {"id": "C", "text": "Attackers disable error correction to execute code on the scanner device."},
+        {"id": "D", "text": "Logos are interpreted as administrative bypass keys by the scanning software."}
+      ],
+      "correct_answer": "A",
+      "explanation": "Reed-Solomon error correction allows QR codes to tolerate between 7% and 30% area damage or logo placement while preserving data integrity.",
+      "safety_takeaway": "A fancy embedded logo does not mean the QR code was officially certified.",
+      "related_guide_id": "qr-basics"
+    },
+    {
+      "id": "q_basics_06",
+      "category_id": "qr-basics",
+      "topic": "Inert Inspection Principles",
+      "difficulty": "beginner",
+      "question": "How does QShield process uploaded QR codes and web addresses safely during inspection?",
+      "options": [
+        {"id": "A", "text": "It executes all JavaScript scripts in a hidden background sandbox."},
+        {"id": "B", "text": "It decodes images in-memory and performs static heuristic parsing without rendering or navigating."},
+        {"id": "C", "text": "It sends automatic login credentials to verify server responses."},
+        {"id": "D", "text": "It downloads all linked files to test if they contain computer viruses."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Safe inspection tools decode matrices and evaluate structural string characteristics in memory without making active HTTP requests or executing client code.",
+      "safety_takeaway": "Static, inert inspection eliminates the risk of drive-by malware execution.",
+      "related_guide_id": "qr-basics"
+    },
+    {
+      "id": "q_phish_01",
+      "category_id": "qr-phishing",
+      "topic": "Urgency In Social Engineering",
+      "difficulty": "beginner",
+      "question": "You receive an email claiming: 'Your email account will be deleted in 2 hours! Scan this QR code to verify your credentials.' Why is this suspicious?",
+      "options": [
+        {"id": "A", "text": "Because authentic IT departments only contact employees using postal mail."},
+        {"id": "B", "text": "Attackers manufacture artificial urgency and use QR codes to bypass email spam filters."},
+        {"id": "C", "text": "Because accounts cannot be terminated on weekdays."},
+        {"id": "D", "text": "Because QR codes cannot be delivered inside email attachments."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Artificial urgency triggers fear and panic, prompting victims to bypass critical thinking. QR codes in emails (quishing) conceal malicious links from traditional text-based scanners.",
+      "safety_takeaway": "Treat unexpected countdowns and urgency claims as immediate red flags.",
+      "related_guide_id": "qr-phishing"
+    },
+    {
+      "id": "q_phish_02",
+      "category_id": "qr-phishing",
+      "topic": "Typosquatting & Lookalike Domains",
+      "difficulty": "intermediate",
+      "question": "A QR code on an office printer directs to 'https://login.micros0ft-portal.net/auth'. What threat pattern does this illustrate?",
+      "options": [
+        {"id": "A", "text": "A standard cloud mirror managed by Microsoft."},
+        {"id": "B", "text": "Typosquatting/brand mimicry replacing the letter 'o' with a zero to impersonate a trusted portal."},
+        {"id": "C", "text": "A secure high-performance corporate sub-network."},
+        {"id": "D", "text": "A valid domain name because it ends in '.net'."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Typosquatting uses subtle misspellings (such as replacing the letter 'o' with zero '0' or adding extra hyphens) to trick users into submitting credentials on rogue lookalike servers.",
+      "safety_takeaway": "Scrutinize exact domain spelling before entering login credentials.",
+      "related_guide_id": "suspicious-urls"
+    },
+    {
+      "id": "q_phish_03",
+      "category_id": "qr-phishing",
+      "topic": "Multi-Factor Authentication & OTP Theft",
+      "difficulty": "intermediate",
+      "question": "If a webpage opened via an unfamiliar QR code prompts you to enter your username, password, and instant SMS OTP, what is the risk?",
+      "options": [
+        {"id": "A", "text": "No risk, because entering an OTP protects you from being phished."},
+        {"id": "B", "text": "Attackers operate adversary-in-the-middle reverse proxies that harvest OTPs in real-time to hijack accounts."},
+        {"id": "C", "text": "OTPs cannot be captured over web forms."},
+        {"id": "D", "text": "The phone carrier automatically blocks fraudulent OTP submissions."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Modern phishing kits act as live proxies: when you enter an OTP on a fake portal, the attacker's script submits it to the genuine service in real time to compromise your active session.",
+      "safety_takeaway": "Never enter one-time codes on pages reached through unsolicited QR codes.",
+      "related_guide_id": "qr-phishing"
+    },
+    {
+      "id": "q_phish_04",
+      "category_id": "qr-phishing",
+      "topic": "Immediate Incident Response",
+      "difficulty": "beginner",
+      "question": "What should be your immediate first step if you realize you entered your corporate password on a fake QR phishing page?",
+      "options": [
+        {"id": "A", "text": "Restart your computer and wait 24 hours to see if anything happens."},
+        {"id": "B", "text": "Change your password immediately on the authentic service, terminate active sessions, and notify IT."},
+        {"id": "C", "text": "Send an angry email to the phishing website administrator."},
+        {"id": "D", "text": "Delete your browser history to erase the leaked credentials."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Time is critical after a credential leak. Immediately changing your password on the genuine site and invalidating active sessions prevents attackers from maintaining access.",
+      "safety_takeaway": "Act quickly: change compromised passwords and revoke session tokens immediately.",
+      "related_guide_id": "incident-response"
+    },
+    {
+      "id": "q_phish_05",
+      "category_id": "qr-phishing",
+      "topic": "Fake Delivery Notification Scams",
+      "difficulty": "beginner",
+      "question": "A postcard in your mailbox says: 'Package delivery failed! Scan QR to reschedule delivery fee of $1.50.' What is the underlying scam?",
+      "options": [
+        {"id": "A", "text": "The postal service requires payment updates for all parcel sizes."},
+        {"id": "B", "text": "A quishing scam designed to harvest credit card numbers, billing addresses, and CVVs."},
+        {"id": "C", "text": "A standard parcel tracking barcode with no financial component."},
+        {"id": "D", "text": "An automated system to confirm the recipient's physical signature."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Small, nominal fee requests ($1.00-$2.00) lower psychological resistance, tempting victims into inputting valuable credit card details that scammers sell or abuse.",
+      "safety_takeaway": "Verify failed deliveries on the carrier's official website using your tracking number.",
+      "related_guide_id": "qr-phishing"
+    },
+    {
+      "id": "q_phish_06",
+      "category_id": "qr-phishing",
+      "topic": "Executive & HR Impersonation",
+      "difficulty": "intermediate",
+      "question": "Why do quishing attackers often impersonate company HR or payroll departments in QR code emails?",
+      "options": [
+        {"id": "A", "text": "Because HR emails cannot be filtered by enterprise firewall rules."},
+        {"id": "B", "text": "Employees naturally comply with requests regarding pay raises, benefits, or employee reviews."},
+        {"id": "C", "text": "Because HR portals require unencrypted connections."},
+        {"id": "D", "text": "Because mobile phones automatically trust emails sent from human resources."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Social engineers exploit workplace authority and financial curiosity (e.g. 'Annual Salary Review QR'). Employees scan with mobile devices that bypass corporate desktop defenses.",
+      "safety_takeaway": "Confirm internal company surveys or policies through official internal channels.",
+      "related_guide_id": "qr-phishing"
+    },
+    {
+      "id": "q_upi_01",
+      "category_id": "upi-payment",
+      "topic": "Receiving Money vs Paying Money",
+      "difficulty": "beginner",
+      "question": "You are selling a refrigerator online. A buyer messages: 'I am sending the payment; scan this QR code and enter your UPI PIN to receive ₹15,000.' What will happen if you do this?",
+      "options": [
+        {"id": "A", "text": "You will successfully receive the ₹15,000 into your bank account."},
+        {"id": "B", "text": "Your account will be debited ₹15,000 because entering a UPI PIN always authorizes money leaving your account."},
+        {"id": "C", "text": "The transaction will stay on hold until you confirm your birthdate."},
+        {"id": "D", "text": "Your bank will require dual authorization from the buyer."}
+      ],
+      "correct_answer": "B",
+      "explanation": "In UPI architecture, receiving funds is completely passive. You NEVER scan a QR code or enter your secret UPI PIN to receive money. Entering a PIN always authorizes a payment out.",
+      "safety_takeaway": "Entering your UPI PIN ALWAYS debits your account; receiving money requires no PIN.",
+      "related_guide_id": "upi-payment"
+    },
+    {
+      "id": "q_upi_02",
+      "category_id": "upi-payment",
+      "topic": "Verifying Recipient VPA",
+      "difficulty": "beginner",
+      "question": "Before authorizing a UPI transaction at a merchant store, what crucial detail should you verify inside your banking app?",
+      "options": [
+        {"id": "A", "text": "The battery level of your mobile device."},
+        {"id": "B", "text": "The verified payee name and Virtual Payment Address (VPA) displayed on your confirmation screen."},
+        {"id": "C", "text": "The color scheme of the merchant's physical standee."},
+        {"id": "D", "text": "The number of customers standing in line."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Scammers sometimes place rogue QR stickers over genuine shop counters. Always ensure the payee name displayed inside your banking app matches the business you are paying.",
+      "safety_takeaway": "Cross-check the payee name and VPA before confirming any financial payment.",
+      "related_guide_id": "upi-payment"
+    },
+    {
+      "id": "q_upi_03",
+      "category_id": "upi-payment",
+      "topic": "Dynamic Amount Pre-population",
+      "difficulty": "intermediate",
+      "question": "Can a malicious payment QR code be generated to automatically set an unauthorized debit amount?",
+      "options": [
+        {"id": "A", "text": "No, QR codes can only encode contact email addresses."},
+        {"id": "B", "text": "Yes, UPI URI standards support an optional 'am' (amount) parameter that pre-fills the debit value."},
+        {"id": "C", "text": "No, banking apps forbid pre-filled amounts in optical codes."},
+        {"id": "D", "text": "Only government banks can pre-populate transaction amounts."}
+      ],
+      "correct_answer": "B",
+      "explanation": "The UPI specification (`upi://pay?pa=...&am=5000`) allows pre-specifying payment amounts. Always inspect the amount field before entering your PIN.",
+      "safety_takeaway": "Verify both the payee name and the exact debit amount before authorizing.",
+      "related_guide_id": "upi-payment"
+    },
+    {
+      "id": "q_upi_04",
+      "category_id": "upi-payment",
+      "topic": "Lottery & Cashback QR Frauds",
+      "difficulty": "beginner",
+      "question": "You receive a WhatsApp message displaying a ₹2,500 'festival cashback' scratch card with a QR code. What is the safest response?",
+      "options": [
+        {"id": "A", "text": "Scan the QR code quickly before the reward timer expires."},
+        {"id": "B", "text": "Delete the message and do not scan; authentic cashbacks are credited directly without scanning QR codes."},
+        {"id": "C", "text": "Forward the message to 10 friends to verify if it works for them."},
+        {"id": "D", "text": "Scan the code but enter a wrong PIN to test the system."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Cashback scratch-card scams are widespread across digital messaging. Legitimate bank rewards deposit money directly into linked accounts without requesting PINs or QR scans.",
+      "safety_takeaway": "Never scan QR codes sent via social apps to claim prizes or cashbacks.",
+      "related_guide_id": "upi-payment"
+    },
+    {
+      "id": "q_upi_05",
+      "category_id": "upi-payment",
+      "topic": "National Cyber Crime Helpline",
+      "difficulty": "intermediate",
+      "question": "If you inadvertently fell victim to a fraudulent QR payment scam in India, what official emergency action should you take?",
+      "options": [
+        {"id": "A", "text": "Call the National Cyber Crime Helpline at 1930 and report on cybercrime.gov.in immediately."},
+        {"id": "B", "text": "Wait for your monthly account statement to dispute the charge."},
+        {"id": "C", "text": "Post about the scam on social media and wait for a response."},
+        {"id": "D", "text": "Format your smartphone immediately to delete transaction records."}
+      ],
+      "correct_answer": "A",
+      "explanation": "Calling 1930 immediately connects victims to the Citizen Financial Cyber Fraud Reporting System, which can freeze stolen funds before fraudsters siphon them from mule accounts.",
+      "safety_takeaway": "Act within the golden hour: report financial fraud immediately to 1930.",
+      "related_guide_id": "incident-response"
+    },
+    {
+      "id": "q_upi_06",
+      "category_id": "upi-payment",
+      "topic": "Refund Collection Traps",
+      "difficulty": "beginner",
+      "question": "A caller posing as customer support says: 'Your failed delivery refund is ready; scan this QR code on WhatsApp to collect your money.' What should you do?",
+      "options": [
+        {"id": "A", "text": "Scan the QR code and approve the request to claim your refund."},
+        {"id": "B", "text": "Refuse the request; legitimate company refunds are processed automatically back to the original source."},
+        {"id": "C", "text": "Ask them to send the QR code by SMS instead."},
+        {"id": "D", "text": "Share your credit card number over the phone instead."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Customer support agents never send QR codes to refund money. Automated refunds return to the original payment instrument without requiring user-initiated QR transfers.",
+      "safety_takeaway": "Refunds never require you to scan a barcode or approve a collection request.",
+      "related_guide_id": "upi-payment"
+    },
+    {
+      "id": "q_url_01",
+      "category_id": "suspicious-urls",
+      "topic": "Subdomain Deception Structure",
+      "difficulty": "intermediate",
+      "question": "In the web address 'https://chase.com.security-verify.xyz/login', what is the actual registered domain you will connect to?",
+      "options": [
+        {"id": "A", "text": "chase.com, because it is at the front of the host string."},
+        {"id": "B", "text": "security-verify.xyz, because the registered domain sits immediately before the top-level domain."},
+        {"id": "C", "text": "login, because it is the terminal file path."},
+        {"id": "D", "text": "Both chase.com and security-verify.xyz equally."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Domain names are evaluated hierarchically from right to left. 'chase.com' in this address is merely an unauthorized subdomain prefix created on the rogue domain 'security-verify.xyz'.",
+      "safety_takeaway": "Identify the real root domain before the suffix; prefixes are easily spoofed.",
+      "related_guide_id": "suspicious-urls"
+    },
+    {
+      "id": "q_url_02",
+      "category_id": "suspicious-urls",
+      "topic": "Raw IP Address Hostnames",
+      "difficulty": "beginner",
+      "question": "A QR code directs your browser to 'http://198.51.100.45/account/update'. Why does QShield flag raw IP hosts with high risk?",
+      "options": [
+        {"id": "A", "text": "Because raw IP addresses cannot transmit HTML code."},
+        {"id": "B", "text": "Legitimate consumer websites use registered domain names; raw IPs are commonly used by short-lived phishing servers."},
+        {"id": "C", "text": "Because mobile phone browsers cannot connect to IP addresses."},
+        {"id": "D", "text": "Because IP addresses indicate an encrypted VPN tunnel."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Legitimate brands invest in verified domain names and SSL infrastructure. Using a raw IP address in consumer-facing communications is a common indicator of transient malicious hosting.",
+      "safety_takeaway": "Exercise extreme caution when links use raw IP numbers instead of recognizable domain names.",
+      "related_guide_id": "suspicious-urls"
+    },
+    {
+      "id": "q_url_03",
+      "category_id": "suspicious-urls",
+      "topic": "URL Shorteners & Obfuscation",
+      "difficulty": "beginner",
+      "question": "Why should users exercise elevated caution when scanning a QR code that encodes a shortened link (e.g. bit.ly, tinyurl)?",
+      "options": [
+        {"id": "A", "text": "Shortened links are illegal under international telecommunication rules."},
+        {"id": "B", "text": "Shorteners completely conceal the actual destination URL from preview inspection."},
+        {"id": "C", "text": "Shorteners automatically download smartphone applications without consent."},
+        {"id": "D", "text": "Shortened links cannot be decoded by modern smartphone cameras."}
+      ],
+      "correct_answer": "B",
+      "explanation": "URL shorteners conceal the true endpoint, making it impossible to evaluate destination safety by visual inspection alone. Safe redirect inspectors help preview final targets.",
+      "safety_takeaway": "Use safe redirect preview tools before following shortened links from unknown sources.",
+      "related_guide_id": "suspicious-urls"
+    },
+    {
+      "id": "q_url_04",
+      "category_id": "suspicious-urls",
+      "topic": "Punycode & Homoglyph Attacks",
+      "difficulty": "intermediate",
+      "question": "What is an Internationalized Domain Name (IDN) homoglyph attack?",
+      "options": [
+        {"id": "A", "text": "Using foreign characters (e.g. Cyrillic 'а') that look identical to Latin letters to mislead users into fake domains."},
+        {"id": "B", "text": "Translating website text automatically into foreign languages without permission."},
+        {"id": "C", "text": "Cracking Wi-Fi router passwords using dictionary wordlists."},
+        {"id": "D", "text": "Sending duplicate QR codes to multiple mobile devices simultaneously."}
+      ],
+      "correct_answer": "A",
+      "explanation": "Homoglyph attacks exploit lookalike glyphs across different alphabets (e.g. Cyrillic 'а' vs Latin 'a'). In standard ASCII, these domains appear prefixed with 'xn--' (punycode).",
+      "safety_takeaway": "Watch out for punycode ('xn--') domains that visually mimic familiar brands.",
+      "related_guide_id": "suspicious-urls"
+    },
+    {
+      "id": "q_url_05",
+      "category_id": "suspicious-urls",
+      "topic": "Unusual Web Ports",
+      "difficulty": "intermediate",
+      "question": "A QR code decodes to 'https://portal.bank-update.com:8443/login'. What does the ':8443' portion represent?",
+      "options": [
+        {"id": "A", "text": "The year the web server certificate was created."},
+        {"id": "B", "text": "A non-standard network port specification instead of standard HTTPS port 443."},
+        {"id": "C", "text": "A verified customer service phone extension."},
+        {"id": "D", "text": "The encrypted security level of the webpage."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Standard web traffic utilizes port 80 (HTTP) or 443 (HTTPS). Non-standard ports (like 8080 or 8443) may point to administrative interfaces, staging environments, or rogue proxies.",
+      "safety_takeaway": "Non-standard port numbers on consumer login pages warrant additional scrutiny.",
+      "related_guide_id": "suspicious-urls"
+    },
+    {
+      "id": "q_url_06",
+      "category_id": "suspicious-urls",
+      "topic": "Userinfo Embedded In URLs",
+      "difficulty": "intermediate",
+      "question": "In the link 'https://google.com@attacker-site.org/search', which server will your browser actually contact?",
+      "options": [
+        {"id": "A", "text": "google.com, because it comes first."},
+        {"id": "B", "text": "attacker-site.org, because text prior to the '@' symbol is treated as user authentication credentials."},
+        {"id": "C", "text": "Both servers simultaneously through a split connection."},
+        {"id": "D", "text": "Neither; browsers refuse to load any address containing an '@' symbol."}
+      ],
+      "correct_answer": "B",
+      "explanation": "RFC URL standards interpret string elements before '@' as userinfo (`user:pass@host`). Fraudsters abuse this to display a trusted name in front of their rogue server.",
+      "safety_takeaway": "Text preceding the '@' character in a URL does not represent the destination server.",
+      "related_guide_id": "suspicious-urls"
+    },
+    {
+      "id": "q_wifi_01",
+      "category_id": "wifi-privacy",
+      "topic": "Wi-Fi QR Code Data Contents",
+      "difficulty": "beginner",
+      "question": "What information does a standard Wi-Fi QR code (`WIFI:S:Cafe_Net;T:WPA;P:secret123;;`) contain?",
+      "options": [
+        {"id": "A", "text": "Only a link to download the cafe's mobile app."},
+        {"id": "B", "text": "The plaintext network SSID name, encryption type, and network password."},
+        {"id": "C", "text": "An encrypted token that only telecom companies can decrypt."},
+        {"id": "D", "text": "The device MAC address of everyone connected to the network."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Wi-Fi QR codes embed the wireless network name and access key in readable format. Scanning automatically configures and connects the device without manual password typing.",
+      "safety_takeaway": "Do not display private home or office Wi-Fi QR codes in publicly viewable areas.",
+      "related_guide_id": "wifi-safety"
+    },
+    {
+      "id": "q_wifi_02",
+      "category_id": "wifi-privacy",
+      "topic": "Evil Twin Rogue Hotspots",
+      "difficulty": "intermediate",
+      "question": "What is an 'Evil Twin' Wi-Fi attack in public venues like airports and coffee shops?",
+      "options": [
+        {"id": "A", "text": "Connecting two smartphones together with a USB cable."},
+        {"id": "B", "text": "A rogue access point set up by an attacker using the exact same name as the legitimate venue to intercept traffic."},
+        {"id": "C", "text": "A computer monitor that mirrors your phone screen without Bluetooth."},
+        {"id": "D", "text": "A software bug that duplicates your contact list."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Attackers deploy fake hotspots with identical names to trick devices into connecting. Once connected, attackers can intercept unencrypted traffic or stage captive portal phishing.",
+      "safety_takeaway": "Confirm authentic public Wi-Fi credentials with venue staff before connecting.",
+      "related_guide_id": "wifi-safety"
+    },
+    {
+      "id": "q_wifi_03",
+      "category_id": "wifi-privacy",
+      "topic": "QShield Wi-Fi Password Masking",
+      "difficulty": "beginner",
+      "question": "Why does QShield automatically mask Wi-Fi passwords as '••••••••' when decoding Wi-Fi QR payloads?",
+      "options": [
+        {"id": "A", "text": "Because QShield cannot decode WPA encryption keys."},
+        {"id": "B", "text": "To prevent shoulder surfing and stop sensitive network credentials from leaking into screen recordings or logs."},
+        {"id": "C", "text": "Because the Wi-Fi password has expired."},
+        {"id": "D", "text": "To force users to purchase a premium subscription."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Privacy-by-design requires masking sensitive credentials to protect users against accidental disclosure during demonstrations, screen sharing, or diagnostic logs.",
+      "safety_takeaway": "Responsible security tools protect sensitive credentials from inadvertent exposure.",
+      "related_guide_id": "wifi-safety"
+    },
+    {
+      "id": "q_wifi_04",
+      "category_id": "wifi-privacy",
+      "topic": "Sensitive URL Query Parameters",
+      "difficulty": "intermediate",
+      "question": "A QR code decodes to 'https://service.example.org/reset?token=xyz987654&email=user@test.org'. What privacy hazard does this present?",
+      "options": [
+        {"id": "A", "text": "The URL embeds active session tokens and personal emails directly in query parameters."},
+        {"id": "B", "text": "The URL will automatically deactivate the user's smartphone SIM card."},
+        {"id": "C", "text": "Web browsers reject any query string longer than ten characters."},
+        {"id": "D", "text": "There is no hazard because query parameters are always deleted upon scanning."}
+      ],
+      "correct_answer": "A",
+      "explanation": "Query parameters containing tokens, passwords, or emails can be captured in web server access logs, browser history, and third-party analytics trackers.",
+      "safety_takeaway": "Never share or publicly inspect QR codes containing active reset tokens or personal credentials.",
+      "related_guide_id": "privacy-protection"
+    },
+    {
+      "id": "q_wifi_05",
+      "category_id": "wifi-privacy",
+      "topic": "Captive Portal Phishing",
+      "difficulty": "intermediate",
+      "question": "Upon connecting to a public Wi-Fi network, a browser pop-up demands: 'Log in with your Facebook or Google password to access free internet.' Is this safe?",
+      "options": [
+        {"id": "A", "text": "Yes, standard social login is universally required for airport Wi-Fi."},
+        {"id": "B", "text": "No, rogue access points use fake captive portals to steal social media and email credentials."},
+        {"id": "C", "text": "Yes, if the social media logo looks authentic."},
+        {"id": "D", "text": "Yes, because captive portals run in an isolated operating system sandbox."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Rogue hotspot operators set up counterfeit captive portals designed to harvest passwords. Authentic public networks typically require email registration or SMS OTP, not your private social media password.",
+      "safety_takeaway": "Never enter passwords for your primary accounts on Wi-Fi captive login pages.",
+      "related_guide_id": "wifi-safety"
+    },
+    {
+      "id": "q_wifi_06",
+      "category_id": "wifi-privacy",
+      "topic": "Memory-Only Processing Safeguards",
+      "difficulty": "beginner",
+      "question": "Why does QShield process uploaded QR images in-memory and discard image bytes after matrix decoding?",
+      "options": [
+        {"id": "A", "text": "To minimize disk wear and ensure user data and photos are never retained on the server."},
+        {"id": "B", "text": "Because the server has disabled all hard drive storage permissions."},
+        {"id": "C", "text": "To prevent other website visitors from downloading your photos."},
+        {"id": "D", "text": "Because OpenCV cannot write files to modern operating systems."}
+      ],
+      "correct_answer": "A",
+      "explanation": "In-memory processing ensures that user-uploaded documents and QR codes are not permanently persisted on server storage, strictly upholding privacy-by-design standards.",
+      "safety_takeaway": "Privacy-by-design ensures user data is discarded immediately after analysis.",
+      "related_guide_id": "privacy-protection"
+    },
+    {
+      "id": "q_redir_01",
+      "category_id": "redirects-safe-browsing",
+      "topic": "Multi-Hop Redirection Mechanics",
+      "difficulty": "intermediate",
+      "question": "How can a cyber attacker use HTTP redirects (301/302) to evade initial link analysis?",
+      "options": [
+        {"id": "A", "text": "By redirecting through a benign reputation domain before forwarding victims to an unindexed phishing destination."},
+        {"id": "B", "text": "By changing the user's browser language automatically."},
+        {"id": "C", "text": "By encrypting the user's hard drive during the redirect hop."},
+        {"id": "D", "text": "Redirects cannot be used to evade security scanners."}
+      ],
+      "correct_answer": "A",
+      "explanation": "Attackers frequently create multi-hop redirect chains where the initial shortener or tracking domain appears clean, but subsequently bounces visitors to an evasive phishing host.",
+      "safety_takeaway": "Inspect the entire redirect chain to uncover the final true destination.",
+      "related_guide_id": "suspicious-urls"
+    },
+    {
+      "id": "q_redir_02",
+      "category_id": "redirects-safe-browsing",
+      "topic": "SSRF Defense In Link Inspection",
+      "difficulty": "intermediate",
+      "question": "Why does QShield strictly block redirect inspection for IP ranges such as 127.0.0.1, 10.0.0.0/8, and 169.254.169.254?",
+      "options": [
+        {"id": "A", "text": "Because those IP ranges have been decommissioned by the internet registry."},
+        {"id": "B", "text": "To prevent Server-Side Request Forgery (SSRF) attacks targeting local systems and cloud metadata services."},
+        {"id": "C", "text": "Because internal networks only operate using Bluetooth."},
+        {"id": "D", "text": "To comply with international copyright streaming guidelines."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Allowing an online server to make outbound network requests to internal or loopback IP ranges creates high-severity SSRF vulnerabilities that could expose sensitive infrastructure.",
+      "safety_takeaway": "Safe inspection tools enforce strict network boundaries against private resources.",
+      "related_guide_id": "privacy-protection"
+    },
+    {
+      "id": "q_redir_03",
+      "category_id": "redirects-safe-browsing",
+      "topic": "Threat Intelligence Timeliness & Zero-Day Scams",
+      "difficulty": "beginner",
+      "question": "If an external threat intelligence lookup (such as Google Safe Browsing) reports 'No threats detected', does that guarantee a link is safe?",
+      "options": [
+        {"id": "A", "text": "Yes, reputation feeds detect 100% of phishing links within seconds of creation."},
+        {"id": "B", "text": "No, newly created phishing domains (zero-day attacks) often remain unlisted for several hours or days."},
+        {"id": "C", "text": "Yes, if the provider has an enterprise cybersecurity license."},
+        {"id": "D", "text": "Yes, reputation feeds guarantee financial reimbursement if a site turns out to be fake."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Threat intelligence databases depend on telemetry and user reports. Brand-new phishing domains operate in the gap before security feeds discover and index them.",
+      "safety_takeaway": "Reputation checks are valuable, but a clean report never guarantees zero risk.",
+      "related_guide_id": "qr-basics"
+    },
+    {
+      "id": "q_redir_04",
+      "category_id": "redirects-safe-browsing",
+      "topic": "Blocked Redirect Inspection Safety",
+      "difficulty": "beginner",
+      "question": "If QShield blocks redirect inspection on a URL because it points to an unresolvable hostname or internal address, does that mean the link is safe to open on your phone?",
+      "options": [
+        {"id": "A", "text": "Yes, if an inspection tool blocks a connection, it means your personal phone is protected."},
+        {"id": "B", "text": "No, a blocked or incomplete inspection is a defensive precaution and not an endorsement of safety."},
+        {"id": "C", "text": "Yes, unresolvable addresses can never cause security issues."},
+        {"id": "D", "text": "Yes, because the scanning server took the risk on your behalf."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Inspection boundaries prevent security tools from making unsafe connections. If a link cannot be safely traced, users should treat it with heightened caution, not assume it is benign.",
+      "safety_takeaway": "Incomplete or blocked inspection is a safety stop, not proof of site safety.",
+      "related_guide_id": "suspicious-urls"
+    },
+    {
+      "id": "q_redir_05",
+      "category_id": "redirects-safe-browsing",
+      "topic": "Safe Independent Verification",
+      "difficulty": "beginner",
+      "question": "What is the safest way to access your bank or airline account if a printed QR code prompts you to make an urgent booking change?",
+      "options": [
+        {"id": "A", "text": "Scan the printed QR code and accept all browser security warnings."},
+        {"id": "B", "text": "Open a trusted browser window and manually type the official website address or use the company's verified app."},
+        {"id": "C", "text": "Search for the company on social media and click the first sponsored link."},
+        {"id": "D", "text": "Ask someone nearby to scan the code first on their phone."}
+      ],
+      "correct_answer": "B",
+      "explanation": "Out-of-band verification is the gold standard of quishing defense: bypass the untrusted physical medium entirely and access the verified service directly through official bookmarks or apps.",
+      "safety_takeaway": "When in doubt, bypass the QR code and navigate directly via trusted official channels.",
+      "related_guide_id": "public-qr-risks"
+    },
+    {
+      "id": "q_redir_06",
+      "category_id": "redirects-safe-browsing",
+      "topic": "Distinguishing Indicators from Certainty",
+      "difficulty": "intermediate",
+      "question": "Why does QShield emphasize that its risk score is an explainable heuristic assessment rather than a guarantee?",
+      "options": [
+        {"id": "A", "text": "Because cybersecurity defense is probabilistic; static structural checks assess risk patterns, not intent."},
+        {"id": "B", "text": "Because QShield does not have access to computer hardware."},
+        {"id": "C", "text": "Because all internet security rules expire after thirty days."},
+        {"id": "D", "text": "Because heuristic scanners are only designed for academic testing."}
+      ],
+      "correct_answer": "A",
+      "explanation": "Defensive cybersecurity relies on identifying risky structural traits (e.g. typosquatting, raw IPs). Transparent heuristic tools inform user judgment rather than claiming absolute omniscient certainty.",
+      "safety_takeaway": "Heuristic scores empower user awareness; critical thinking remains your strongest shield.",
+      "related_guide_id": "qr-basics"
+    }
+  ]
+}

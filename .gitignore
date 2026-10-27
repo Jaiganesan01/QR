@@ -1,0 +1,37 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+.venv/
+
+# Flask & SQLite
+instance/
+*.sqlite3
+*.db
+
+# Environment & Secrets
+.env
+*.pem
+*.key
+
+# Uploads / Temp files / Reports
+uploads/
+scratch/
+*.pdf
+*.log
+
+# IDE & OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Testing & Coverage
+.pytest_cache/
+.coverage
+htmlcov/

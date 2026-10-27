@@ -1,0 +1,36 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}Privacy Policy & Data Practice — QShield{% endblock %}
+
+{% block content %}
+<section class="section-padding">
+  <div class="container" style="max-width: 860px;">
+    <div class="text-center" style="margin-bottom: var(--space-2xl);">
+      <div class="hero-badge">Privacy First</div>
+      <h1 style="margin-bottom: var(--space-sm);">Privacy & Data Practices</h1>
+      <p>How QShield handles uploaded images, submitted web addresses, and telemetry.</p>
+    </div>
+
+    <div class="card" style="margin-bottom: var(--space-xl);">
+      <h2 style="font-size: 1.35rem; margin-bottom: var(--space-sm);">1. Ephemeral In-Memory Image Processing</h2>
+      <p>
+        Uploaded QR code images are received in memory to execute matrix decoding and are not permanently saved to disk. Once decoding completes or errors, image buffers are discarded.
+      </p>
+    </div>
+
+    <div class="card" style="margin-bottom: var(--space-xl);">
+      <h2 style="font-size: 1.35rem; margin-bottom: var(--space-sm);">2. URL Token & Query Parameter Scrubbing</h2>
+      <p>
+        When telemetry or history storage is enabled in future phases, QShield strips query parameters (such as `?token=`, `?auth=`, or `?user=`) to prevent accidental logging of personal authentication tokens or sensitive information.
+      </p>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size: 1.35rem; margin-bottom: var(--space-sm);">3. External Lookups Notice</h2>
+      <p>
+        If external threat intelligence integrations (such as Google Safe Browsing or VirusTotal) are enabled, anonymous domain queries may be transmitted to those external APIs according to their respective privacy terms. Local heuristic scanning operates without third-party data transmission.
+      </p>
+    </div>
+  </div>
+</section>
+{% endblock %}
